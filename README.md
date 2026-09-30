@@ -1,6 +1,6 @@
 # HandednessRotation
 
-`HandednessRotation` is a Python package for 3D rotations that carries **coordinate handedness** (`CoordinateHandedness`) and **axis conventions** (`Axis`, `AxisOrientation`) alongside matrix, quaternion, Rodrigues, rotation-vector, and Euler representations.
+`HandednessRotation` is a Python package for 3D rotations that carries **coordinate handedness** (`CoordinateHandedness`) and **axis conventions** (`Axis`, `AxisOrientation`) alongside matrix, quaternion, rotation-vector, and Euler representations.
 
 It builds on [rotation](https://github.com/ry-yoshida-private/Rotation) and [cartesian-axis-3d](https://github.com/ry-yoshida-private/CartesianAxis3D). Numeric maps (for example `rotation_matrix`) match the upstream `rotation` types; `coordinate_handedness` is **metadata** (composition and factories require matching tags unless documented otherwise).
 
@@ -33,4 +33,4 @@ x_axis = R.extract_axis_rotation(Axis.X)
 
 ## Package layout
 
-Subpackages and entry points are summarized in [`src/handedness_rotation/README.md`](src/handedness_rotation/README.md) (matrix, axis, order, euler, vector, quaternion, Rodrigues).
+Subpackages and entry points are summarized in [`src/handedness_rotation/README.md`](src/handedness_rotation/README.md) (matrix, axis, order, euler, vector, quaternion).

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Extends [rotation](https://github.com/ry-yoshida-private/Rotation) with **`CoordinateHandedness`** (and related axis types from [cartesian-axis-3d](https://github.com/ry-yoshida-private/CartesianAxis3D)) on rotation containers. Quaternions, Rodrigues parameters, rotation vectors, and matrices share the same tagging pattern: handedness is recorded on the object and enforced where the API composes or constructs tagged types.
+Extends [rotation](https://github.com/ry-yoshida-private/Rotation) with **`CoordinateHandedness`** (and related axis types from [cartesian-axis-3d](https://github.com/ry-yoshida-private/CartesianAxis3D)) on rotation containers. Quaternions, rotation vectors, and matrices share the same tagging pattern: handedness is recorded on the object and enforced where the API composes or constructs tagged types.
 
 Public re-exports from `handedness_rotation` are defined in [`__init__.py`](./__init__.py).
 
@@ -14,9 +14,8 @@ Public re-exports from `handedness_rotation` are defined in [`__init__.py`](./__
 | Axis | [`axis/`](./axis/README.md) | `IntrinsicAxis3D`, `ExtrinsicAxis3D` (SciPy Euler letters), `RotationAxis` (roll / pitch / yaw) |
 | Order | [`order/`](./order/README.md) | `IntrinsicRotationOrder`, `ExtrinsicRotationOrder` — length-3 axis sequences for Euler triples |
 | Euler | [`euler/`](./euler/README.md) | `EulerAngles` — triple + order + `AngleUnit`; builds 3×3 matrix like SciPy; `EulerIndexMapper` — roll/pitch/yaw index mapping via `AxisOrientation` |
-| Vector | [`vector/`](./vector/README.md) | `RotationVector` — axis–angle vector + handedness; factories from matrix / quaternion / Rodrigues |
+| Vector | [`vector/`](./vector/README.md) | `RotationVector` — axis–angle vector + handedness; factories from matrix / axis–angle |
 | Quaternion | [`quaternion/`](./quaternion/README.md) | `Quaternion` — normalized quaternion + format + handedness |
-| Rodrigues | [`rodrigues/`](./rodrigues/README.md) | `RodriguesRotationParameter` — Rodrigues vector + handedness |
 
 ## Dependencies
 

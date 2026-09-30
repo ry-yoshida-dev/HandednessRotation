@@ -6,7 +6,7 @@
 
 ## Example
 
-Construct from axis–angle or from a validated 3×3 rotation matrix; `rotation_matrix` matches **`rotation`** (OpenCV Rodrigues under the hood).
+Construct from axis–angle or from a validated 3×3 rotation matrix; `rotation_matrix` matches **`rotation`** (scipy `Rotation.from_rotvec` under the hood).
 
 ```python
 import numpy as np
@@ -30,6 +30,6 @@ omega2 = RotationVector.from_matrix(R, coordinate_handedness=h)
 | Module | Description |
 | ------ | ----------- |
 | [`rotation_vector.py`](./rotation_vector.py) | `RotationVector` dataclass |
-| [`mixin/factory.py`](./mixin/factory.py) | `RotationVectorFactoryMixin` — `from_matrix`, `from_quaternion`, `from_rodrigues`, etc., with handedness parameter |
+| [`mixin/factory.py`](./mixin/factory.py) | `RotationVectorFactoryMixin` — `from_matrix`, `from_axis_angle`, `zero_vector`, with handedness parameter |
 
 See [`../matrix`](../matrix/README.md) and **`rotation`** for SO(3) validation rules on matrix-based construction.
