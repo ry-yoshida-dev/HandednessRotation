@@ -19,4 +19,4 @@ Public re-exports from `handedness_rotation` are defined in [`__init__.py`](./__
 
 ## Dependencies
 
-Runtime use expects **`rotation`**, **`cartesian-axis-3d`** (imported as `cartesian_axis`), **`numpy`**, **`scipy`**, **`typing_extensions`**, and **`units`** (for `EulerAngles`). Declared in the repository root `pyproject.toml`; `requirements.txt` mirrors the same lines.
+Runtime use expects **`rotation`**, **`cartesian-axis-3d`** (imported as `cartesian_axis`), **`numpy`**, **`scipy`**, and **`units`** (for `EulerAngles`). Declared in the repository root `pyproject.toml`; `requirements.txt` mirrors the same lines.

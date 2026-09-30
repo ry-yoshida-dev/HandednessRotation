@@ -6,7 +6,7 @@ It builds on [rotation](https://github.com/ry-yoshida-private/Rotation) and [car
 
 ## Installation
 
-From a clone of this repository. **`pyproject.toml`** declares **NumPy**, **SciPy**, **`typing_extensions`**, and Git installs of **`units`**, **`cartesian-axis-3d`**, and **`rotation`**; **`requirements.txt`** is the same runtime stack for an optional `pip install -r` pass (CI, strict venv setup, and so on).
+From a clone of this repository. **`pyproject.toml`** declares **NumPy**, **SciPy**, and Git installs of **`units`**, **`cartesian-axis-3d`**, and **`rotation`**; **`requirements.txt`** is the same runtime stack for an optional `pip install -r` pass (CI, strict venv setup, and so on).
 
 ```bash
 pip install -r requirements.txt
@@ -14,6 +14,15 @@ pip install -e .
 ```
 
 Skip the first line if you only want **`pip`** to resolve dependencies from **`pyproject.toml`**.
+
+## Testing
+
+```bash
+pip install -e ".[dev]"
+pytest
+```
+
+See [`tests/README.md`](tests/README.md) for the suite layout.
 
 ## Example
 

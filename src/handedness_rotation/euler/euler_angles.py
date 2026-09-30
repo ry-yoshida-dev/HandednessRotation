@@ -42,7 +42,7 @@ class EulerAngles:
     order: IntrinsicRotationOrder | ExtrinsicRotationOrder
     unit: AngleUnit
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.value.shape != (3,):
             raise ValueError(f"Euler angles must have shape (3,), got shape {self.value.shape}")
 
@@ -59,11 +59,7 @@ class EulerAngles:
         Array:
             Composed rotation as a ``float64`` (3, 3) matrix (same convention as SciPy).
         """
-        match self.unit:
-            case AngleUnit.DEGREE:
-                rad_values = np.deg2rad(self.value.astype(np.float64, copy=False))
-            case AngleUnit.RADIAN:
-                rad_values = self.value.astype(np.float64, copy=False)
+        rad_values: Array = np.asarray(Angle(value=self.value, unit=self.unit).radian, dtype=np.float64)
 
         res: np.ndarray = np.eye(3, dtype=np.float64)
         handedness = CoordinateHandedness.RIGHT
@@ -102,10 +98,10 @@ class EulerAngles:
         Returns
         -------
         Angle:
-            First component of value.
+            First component of value as a length-1 array.
         """
         return Angle(
-            value=self.value[0], 
+            value=self.value[0:1], 
             unit=self.unit
             )
 
@@ -117,10 +113,10 @@ class EulerAngles:
         Returns
         -------
         Angle:
-            Second component of value.
+            Second component of value as a length-1 array.
         """
         return Angle(
-            value=self.value[1], 
+            value=self.value[1:2], 
             unit=self.unit
             )
 
@@ -132,10 +128,10 @@ class EulerAngles:
         Returns
         -------
         Angle:
-            Third component of value.
+            Third component of value as a length-1 array.
         """
         return Angle(
-            value=self.value[2], 
+            value=self.value[2:3], 
             unit=self.unit
             )
 

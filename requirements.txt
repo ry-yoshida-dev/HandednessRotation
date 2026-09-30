@@ -1,6 +1,5 @@
 numpy
 scipy
-typing_extensions>=4.8
 cartesian-axis-3d @ git+https://github.com/ry-yoshida-dev/CartesianAxis3D.git
 rotation @ git+https://github.com/ry-yoshida-dev/Rotation.git
 units @ git+https://github.com/ry-yoshida-dev/Units.git

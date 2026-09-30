@@ -9,8 +9,11 @@ from cartesian_axis import CoordinateHandedness
 class HandedRotationMatrixProtocol(Protocol):
     """Structural surface used by matrix mixins (no rotation.RotationMatrix subclassing)."""
 
-    value: np.ndarray
-    coordinate_handedness: CoordinateHandedness
+    @property
+    def value(self) -> np.ndarray: ...
+
+    @property
+    def coordinate_handedness(self) -> CoordinateHandedness: ...
 
     def __init__(
         self,

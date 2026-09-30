@@ -52,7 +52,7 @@ class RotationMatrix(
         bool:
             True if determinant is +1 within tolerance, False otherwise.
         """
-        return np.isclose(np.linalg.det(self.value), 1.0, atol=1e-6)
+        return bool(np.isclose(np.linalg.det(self.value), 1.0, atol=1e-6))
 
     def extract_axis_rotation(
         self,

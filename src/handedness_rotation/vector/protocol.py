@@ -2,20 +2,21 @@ from __future__ import annotations
 
 from typing import Protocol, TypeVar, cast
 
-import numpy as np
 from cartesian_axis import CoordinateHandedness
+from rotation.types import FloatArray
 from rotation.vector.protocol import RotationVectorLike
 
 
 class HandedRotationVectorProtocol(RotationVectorLike, Protocol):
     """Structural surface for vector mixins (extends upstream ``RotationVectorLike``)."""
 
-    coordinate_handedness: CoordinateHandedness
+    @property
+    def coordinate_handedness(self) -> CoordinateHandedness: ...
 
     def __init__(
         self,
         *,
-        value: np.ndarray,
+        value: FloatArray,
         coordinate_handedness: CoordinateHandedness,
     ) -> None: ...
 
@@ -31,7 +32,7 @@ class HandedRotationVectorCls(Protocol[THandedVectorOut]):
     def __call__(
         self,
         *,
-        value: np.ndarray,
+        value: FloatArray,
         coordinate_handedness: CoordinateHandedness,
     ) -> THandedVectorOut: ...
 

@@ -1,24 +1,19 @@
 from __future__ import annotations
 
-import sys
+from typing import TYPE_CHECKING, TypeVar
 
 import numpy as np
 from scipy.spatial.transform import Rotation  # type: ignore
 from cartesian_axis import Axis, CoordinateHandedness
-from units import AngleUnit
+from units import Angle, AngleUnit
 
 from ...order import IntrinsicRotationOrder, ExtrinsicRotationOrder
-from ..protocol import HandedRotationMatrixProtocol
-
-if sys.version_info >= (3, 11):
-    from typing import TYPE_CHECKING, Self, cast
-else:
-    from typing import TYPE_CHECKING, cast
-
-    from typing_extensions import Self
+from ..protocol import HandedRotationMatrixProtocol, handed_rotation_matrix_ctor
 
 if TYPE_CHECKING:
     from ...euler import EulerAngles
+
+_R = TypeVar("_R", bound=HandedRotationMatrixProtocol)
 
 
 class RotationMatrixConvertMixin:
@@ -34,7 +29,7 @@ class RotationMatrixConvertMixin:
             case Axis.Z:
                 return np.diag([1.0, 1.0, -1.0])
 
-    def to_opposite_handedness(self, *, flip_axis: Axis = Axis.Z) -> Self:
+    def to_opposite_handedness(self: _R, *, flip_axis: Axis = Axis.Z) -> _R:
         """
         Represent the same proper rotation under the opposite handedness tag using one axis flip.
 
@@ -49,27 +44,23 @@ class RotationMatrixConvertMixin:
 
         Returns
         -------
-        Self
+        _R
             Same orthogonal SO(3) map with flipped coordinate_handedness metadata.
         """
-        h = cast(HandedRotationMatrixProtocol, self)
-        D = self._axis_reflection_matrix(flip_axis)
-        new_value = D @ h.value @ D
-        match h.coordinate_handedness:
+        reflection: np.ndarray = RotationMatrixConvertMixin._axis_reflection_matrix(flip_axis)
+        new_handedness: CoordinateHandedness
+        match self.coordinate_handedness:
             case CoordinateHandedness.RIGHT:
                 new_handedness = CoordinateHandedness.LEFT
             case CoordinateHandedness.LEFT:
                 new_handedness = CoordinateHandedness.RIGHT
-        return cast(
-            Self,
-            type(self)(
-                value=new_value,  # type: ignore[call-arg]
-                coordinate_handedness=new_handedness,  # type: ignore[call-arg]
-            ),
+        return handed_rotation_matrix_ctor(type(self))(
+            value=reflection @ self.value @ reflection,
+            coordinate_handedness=new_handedness,
         )
 
     def to_euler_angles(
-        self,
+        self: _R,
         order: IntrinsicRotationOrder | ExtrinsicRotationOrder,
         unit: AngleUnit,
     ) -> EulerAngles:
@@ -81,14 +72,14 @@ class RotationMatrixConvertMixin:
         """
         from ...euler import EulerAngles
 
-        h = cast(HandedRotationMatrixProtocol, self)
-        r = Rotation.from_matrix(h.value)
-        raw_euler_angles = r.as_euler(
-            order.value,
-            degrees=unit.is_degree,
+        r = Rotation.from_matrix(self.value)
+        euler_angles: Angle = Angle(
+            value=r.as_euler(order.value, degrees=False),
+            unit=AngleUnit.RADIAN,
         )
+        euler_angles.convert_unit(unit)
         return EulerAngles(
-            value=raw_euler_angles,
+            value=np.asarray(euler_angles.value, dtype=np.float64),
             order=order,
             unit=unit,
         )
