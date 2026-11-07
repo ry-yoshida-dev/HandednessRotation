@@ -1,30 +1,25 @@
 # HandednessRotation
 
-`HandednessRotation` is a Python package for 3D rotations that carries **coordinate handedness** (`CoordinateHandedness`) and **axis conventions** (`Axis`, `AxisOrientation`) alongside matrix, quaternion, rotation-vector, and Euler representations.
+## Overview
 
-It builds on [rotation](https://github.com/ry-yoshida-private/Rotation) and [cartesian-axis-3d](https://github.com/ry-yoshida-private/CartesianAxis3D). Numeric maps (for example `rotation_matrix`) match the upstream `rotation` types; `coordinate_handedness` is **metadata** (composition and factories require matching tags unless documented otherwise).
+`handedness_rotation` extends the 3D rotation containers of [rotation](https://github.com/ry-yoshida-dev/Rotation) with a
+`CoordinateHandedness` tag from [cartesian-axis-3d](https://github.com/ry-yoshida-dev/CartesianAxis3D). The numeric
+values follow `rotation`; the tag records the frame convention, and composition and factories require matching tags.
+
+| Representation | Class |
+| --- | --- |
+| Rotation matrix | `RotationMatrix` |
+| Quaternion | `Quaternion` |
+| Rotation vector | `RotationVector` |
+| Euler angles | `EulerAngles` |
 
 ## Installation
 
-From a clone of this repository. **`pyproject.toml`** declares **NumPy**, **SciPy**, and Git installs of **`units`**, **`cartesian-axis-3d`**, and **`rotation`**; **`requirements.txt`** is the same runtime stack for an optional `pip install -r` pass (CI, strict venv setup, and so on).
-
 ```bash
-pip install -r requirements.txt
-pip install -e .
+pip install .
 ```
 
-Skip the first line if you only want **`pip`** to resolve dependencies from **`pyproject.toml`**.
-
-## Testing
-
-```bash
-pip install -e ".[dev]"
-pytest
-```
-
-See [`tests/README.md`](tests/README.md) for the suite layout.
-
-## Example
+## Usage
 
 ```python
 import numpy as np
@@ -39,7 +34,3 @@ R = RotationMatrix(
 
 x_axis = R.extract_axis_rotation(Axis.X)
 ```
-
-## Package layout
-
-Subpackages and entry points are summarized in [`src/handedness_rotation/README.md`](src/handedness_rotation/README.md) (matrix, axis, order, euler, vector, quaternion).

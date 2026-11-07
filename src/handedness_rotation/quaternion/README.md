@@ -2,11 +2,15 @@
 
 ## Overview
 
-**`Quaternion`** extends `rotation.Quaternion` with a **`coordinate_handedness`** field. Format (`WXYZ` / `XYZW`) and normalization rules come from **`rotation`**; the handedness tag is metadata and does not change the inherited `rotation_matrix` computation.
+`Quaternion`: a normalized quaternion from `rotation` with a `coordinate_handedness` tag.
 
-## Example
+## Components
 
-`value` must be shape `(4,)` and **normalized** (same checks as **`rotation`**). `QuaternionFormat` comes from **`rotation`**.
+| Component | Description |
+| --------- | ----------- |
+| [container.py](./container.py) | `Quaternion`: `value`, `format`, and `coordinate_handedness` |
+
+## Examples
 
 ```python
 import numpy as np
@@ -15,19 +19,10 @@ from rotation import QuaternionFormat
 
 from handedness_rotation import Quaternion
 
-h = CoordinateHandedness.RIGHT
 q = Quaternion(
     value=np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float64),
     format=QuaternionFormat.WXYZ,
-    coordinate_handedness=h,
+    coordinate_handedness=CoordinateHandedness.RIGHT,
 )
-R = q.rotation_matrix  # (3, 3), SciPy convention via rotation.Quaternion
+R = q.rotation_matrix
 ```
-
-## Components
-
-| Module | Description |
-| ------ | ----------- |
-| [`container.py`](./container.py) | `Quaternion` — frozen dataclass with `value`, `format`, `coordinate_handedness` |
-
-Base types `QuaternionFormat` and validation live in **`rotation`** (`rotation.quaternion`).

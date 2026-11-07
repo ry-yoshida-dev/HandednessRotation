@@ -4,8 +4,6 @@
 
 Pytest suite for the `handedness_rotation` package: handedness tagging, factories, composition rules, handedness conversion, and Euler angle handling.
 
-Expected values are derived from known rotations and algebraic identities (for example, intrinsic `ABC` equals extrinsic `cba` with reversed angles) rather than from SciPy directly.
-
 ## Components
 
 | Component | Description |
@@ -19,12 +17,3 @@ Expected values are derived from known rotations and algebraic identities (for e
 | [test_rotation_vector.py](./test_rotation_vector.py) | `RotationVector` validation, factories, matrix round trip |
 | [test_quaternion.py](./test_quaternion.py) | `Quaternion` handedness tag, validation, matrix conversion |
 
-## Examples
-
-```bash
-cd /path/to/HandednessRotation
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-pytest
-```
