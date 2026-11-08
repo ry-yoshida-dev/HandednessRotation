@@ -5,7 +5,9 @@ from typing import TypeVar
 import numpy as np
 import numpy.typing as npt
 from cartesian_axis import CoordinateHandedness
+from rotation import RotationMatrix as RotationMatrixBase
 from rotation import RotationVector as RotationVectorBase
+from scipy.spatial.transform import Rotation  # type: ignore[import-untyped]
 
 from ..protocol import HandedRotationVectorProtocol, handed_rotation_vector_ctor
 
@@ -21,8 +23,8 @@ class RotationVectorFactoryMixin:
     container; inheriting that type makes overrides clash with static analysis.
     Combine with ``rotation.RotationVector`` (or a subclass) in the final class
     bases so ``value`` validation, ``angle``, and ``rotation_matrix`` stay
-    available. Implementations delegate to :meth:`RotationVectorBase.from_matrix`
-    and siblings, then attach ``coordinate_handedness`` (metadata only).
+    available. Implementations delegate to ``rotation`` for validation and conversion,
+    then attach ``coordinate_handedness`` (metadata only).
     """
 
     @classmethod
@@ -62,9 +64,15 @@ class RotationVectorFactoryMixin:
             If ``rotation_matrix`` is not shape (3, 3), or if ``validate`` is True
             and the matrix is not a proper rotation.
         """
-        base = RotationVectorBase.from_matrix(rotation_matrix, validate=validate)
+        matrix = np.asarray(rotation_matrix, dtype=np.float64)
+        if matrix.shape != (3, 3):
+            raise ValueError(
+                f"Invalid rotation matrix: must be a shape (3, 3) array, got shape {matrix.shape}."
+            )
+        if validate:
+            RotationMatrixBase.validate_rotation_matrix_array(matrix)
         return handed_rotation_vector_ctor(cls)(
-            value=np.asarray(base.value, dtype=np.float64),
+            value=Rotation.from_matrix(matrix).as_rotvec(),
             coordinate_handedness=coordinate_handedness,
         )
 
@@ -125,6 +133,11 @@ class RotationVectorFactoryMixin:
             ``value = (axis / ||axis||) * angle`` (or zero if axis vanishes),
             tagged with ``coordinate_handedness``.
         """
+        if np.isclose(float(np.linalg.norm(np.asarray(axis, dtype=np.float64))), 0.0):
+            return handed_rotation_vector_ctor(cls)(
+                value=np.zeros(3, dtype=np.float64),
+                coordinate_handedness=coordinate_handedness,
+            )
         base = RotationVectorBase.from_axis_angle(axis, angle)
         return handed_rotation_vector_ctor(cls)(
             value=np.asarray(base.value, dtype=np.float64),
