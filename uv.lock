@@ -7,7 +7,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "2026-11-01T08:18:47.577877Z"
+exclude-newer = "2026-11-01T08:43:47.372779Z"
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -271,7 +271,7 @@ wheels = [
 [[package]]
 name = "rotation"
 version = "0.0.1"
-source = { git = "https://github.com/ry-yoshida-dev/Rotation.git#fba8738076145ed57afc5edbf341bca21f19cf26" }
+source = { git = "https://github.com/ry-yoshida-dev/Rotation.git#c0251a4e0f3d72ec03e5ad361120d7e8a2884ce9" }
 dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
