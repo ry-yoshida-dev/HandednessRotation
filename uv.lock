@@ -8,7 +8,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "2026-11-01T08:48:03.626142Z"
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -78,7 +78,7 @@ wheels = [
 [[package]]
 name = "cartesian-axis-3d"
 version = "0.0.1"
-source = { git = "https://github.com/ry-yoshida-dev/CartesianAxis3D.git#aa51be158eb8a6b1bdcc7f8753403a1739d297ec" }
+source = { git = "https://github.com/ry-yoshida-dev/CartesianAxis3D.git#5a1268aaf146db5040f3e127c92b4431603f5a11" }
 dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
@@ -121,7 +121,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "rotation", git = "https://github.com/ry-yoshida-dev/Rotation.git" },
     { name = "scipy" },
-    { name = "units", git = "https://github.com/ry-yoshida-dev/Units.git" },
+    { name = "units", git = "https://github.com/ry-yoshida-dev/Units.git?rev=main" },
 ]
 provides-extras = ["dev"]
 
@@ -549,7 +549,7 @@ resolution-markers = [
     "python_full_version < '3.12'",
 ]
 dependencies = [
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" } },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/7a/97/5a3609c4f8d58b039179648e62dd220f89864f56f7357f5d4f45c29eb2cc/scipy-1.17.1.tar.gz", hash = "sha256:95d8e012d8cb8816c226aef832200b1d45109ed4464303e997c5b13122b297c0", size = 30573822, upload-time = "2026-02-23T00:26:24.851Z" }
 wheels = [
@@ -624,7 +624,7 @@ resolution-markers = [
     "python_full_version >= '3.12' and python_full_version < '3.15'",
 ]
 dependencies = [
-    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" } },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/7e/74/66de6258867beb2ef08f35f9f2ac017a52cacd5081714d239ff1a442d458/scipy-1.18.1.tar.gz", hash = "sha256:52c4b7422442aba924d03ad4019852b08a92e64ea187b933135687bfe2747307", size = 30781235, upload-time = "2026-08-21T23:28:50.599Z" }
 wheels = [
@@ -702,8 +702,9 @@ wheels = [
 [[package]]
 name = "units"
 version = "0.1.0"
-source = { git = "https://github.com/ry-yoshida-dev/Units.git#33eae76f9f8acdfab7472493cf33a12509c5fbfc" }
+source = { git = "https://github.com/ry-yoshida-dev/Units.git?rev=main#f3b9a717ab2d7c86d29135a46e4eff89130e2e7b" }
 dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "typing-extensions" },
 ]
